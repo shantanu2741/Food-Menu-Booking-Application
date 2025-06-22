@@ -1,3 +1,4 @@
+![image](https://github.com/user-attachments/assets/1714516b-2ffa-462d-8bea-56d0632bd715)
 # 🍽️ Food Menu Booking System
 
 A full-stack Ruby on Rails application that allows organizations to manage daily food menus, and lets employees submit their food preferences (snacks, dinner, chapatis) for each day.
@@ -21,6 +22,7 @@ A full-stack Ruby on Rails application that allows organizations to manage daily
   - Includes a direct login link using magic link authentication.
 
 ---
+![image](https://github.com/user-attachments/assets/079cc334-b22d-4898-b0b0-fa1b213bd4ea)
 
 ## 🔐 Security & Access
 
