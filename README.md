@@ -1,55 +1,58 @@
 # 🍽️ Food Menu Booking System
 
-A full-featured Ruby on Rails web application designed for organizations to efficiently manage daily food preferences of employees. Admins can create menus, employees can submit responses, and data can be exported for reporting.
+A full-stack Ruby on Rails application that allows organizations to manage daily food menus, and lets employees submit their food preferences (snacks, dinner, chapatis) for each day.
 
 ---
 
 ## 🚀 Features
 
-### ✅ Employee
-- Login via email/password or passwordless magic link
-- View and submit today's food preferences:
-  - Snacks (Yes/No)
-  - Dinner (Yes/No)
-  - Chapati Count
-- Edit submitted response (only within 2 hours of menu creation)
-
-### ✅ Admin
-- Admin dashboard with today's menu and recent menus
-- Create, update, or delete daily menus
-- View all employee responses (filtered by date)
-- Export daily responses as Excel (.xlsx) sheet
-- Menu creation triggers email notification to all employees
-
-### ✅ System
-- Secure authentication (Devise)
-- Passwordless login with magic link
-- Bootstrap-enhanced responsive UI
-- Role-based access (admin vs employee)
+- Admins can:
+  - Create, edit, and delete daily menus.
+  - View all responses (today’s and previous).
+  - Export daily responses to Excel.
+  - Receive role-based access to manage menus and users.
+  
+- Employees can:
+  - Submit their daily food preferences (within a 2-hour time window).
+  - View their submitted preferences and update them within the allowed time.
+  
+- Email Notifications:
+  - All employees get notified via email when a new menu is created.
+  - Includes a direct login link using magic link authentication.
 
 ---
 
-## 🛠️ Technologies Used
+## 🔐 Security & Access
 
-- **Ruby on Rails** 8+
-- **PostgreSQL** (preferred)
-- **Devise** (authentication)
-- **Passwordless** (magic link login)
-- **caxlsx / caxlsx_rails** (Excel export)
-- **Bootstrap** 5
-- **Stimulus** (for alerts/UX)
-- **ActionMailer** (menu notification emails)
+- 🧑‍💼 **Admin will be seeded** using Rails seeds.
+- 🏢 **Default organization** is set up automatically.
+- 👥 **Default user role** is `employee`.
+- 🔑 **Authentication** handled via Devise.
+- ✨ **Passwordless magic link login** supported via email.
+- 🔐 **Role-based authorization** ensures employees and admins access only relevant features.
+- 🛠️ **Centralized admin dashboard** controls menu creation, deletion, user responses, and exports.
 
 ---
 
-## 📦 Installation
+## 🛠️ Tech Stack
 
-### 1. Clone the repository
+- **Backend:** Ruby on Rails 7+
+- **Database:** PostgreSQL
+- **Authentication:** Devise + Magic Link (Passwordless)
+- **Mailer:** ActionMailer with SMTP
+- **Export:** Axlsx for Excel downloads
+- **Frontend:** Bootstrap 5 for UI components
 
-```bash
-git clone https://github.com/your-username/food-menu-booking.git
-cd food-menu-booking
-```
+---
+
+## 📦 Setup Instructions
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/your-username/food-menu-booking.git
+   cd food-menu-booking
+
+---
 
 ### 2. Install dependencies
 
