@@ -7,7 +7,7 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-# org = Organization.create!(name: "arieotech")
+# org = Organization.create!(name: "abc")
 
 
 User.create!(
@@ -15,6 +15,6 @@ User.create!(
   password: "123456",
   password_confirmation: "123456",
   user_name: "admin2",
-  role: "admin",          # string instead of symbol or enum
+  role: "admin",        
   organization_id: 1
 )
