@@ -1,0 +1,6 @@
+<h2>Hello <%= @user.user_name %>,</h2>
+<p>You requested a magic login link for FoodMenuBookingApp. Click the button below to sign in:</p>
+
+<p><%= link_to "Login Now", @url, class: "btn btn-primary" %></p>
+
+<p>This link will expire in 2 hours or after one use.</p>

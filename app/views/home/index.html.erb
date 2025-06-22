@@ -1,0 +1,156 @@
+<div class="landing-page">
+  <!-- Hero Section -->
+  <div class="hero-section py-5 text-center text-white">
+    <div class="container py-5">
+      <h1 class="display-4 fw-bold mb-4">Welcome to <span class="text-warning">FoodMenuBooking</span></h1>
+      <p class="lead mb-5">Simplify your office meal planning with our intuitive food menu booking system</p>
+      <div class="d-flex justify-content-center gap-3">
+        <%= link_to 'Get Started', new_user_registration_path, class: 'btn btn-success btn-lg px-4 py-2' %>
+        <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-outline-light btn-lg px-4 py-2' %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="container py-5">
+    <h2 class="text-center mb-5">Key Features</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-4">
+            <div class="feature-icon mb-3">
+              <i class="bi bi-calendar-check fs-1 text-primary"></i>
+            </div>
+            <h3 class="h4">Daily Menu</h3>
+            <p>View and select from the daily menu options with just a few clicks.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-4">
+            <div class="feature-icon mb-3">
+              <i class="bi bi-clock-history fs-1 text-primary"></i>
+            </div>
+            <h3 class="h4">Easy Booking</h3>
+            <p>Quickly submit your food preferences for the day in seconds.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-4">
+            <div class="feature-icon mb-3">
+              <i class="bi bi-bar-chart fs-1 text-primary"></i>
+            </div>
+            <h3 class="h4">Admin Dashboard</h3>
+            <p>Comprehensive tools for administrators to manage menus and responses.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <div class="bg-light py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">How It Works</h2>
+      <div class="row g-4">
+        <div class="col-md-3">
+          <div class="text-center">
+            <div class="step-number mb-3">1</div>
+            <h4>Sign Up</h4>
+            <p>Create your account in just a few simple steps</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="text-center">
+            <div class="step-number mb-3">2</div>
+            <h4>View Menu</h4>
+            <p>Check the daily menu options</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="text-center">
+            <div class="step-number mb-3">3</div>
+            <h4>Submit Choices</h4>
+            <p>Select your preferred meals</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="text-center">
+            <div class="step-number mb-3">4</div>
+            <h4>Enjoy Your Meal</h4>
+            <p>Your food will be ready as requested</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="container py-5">
+    <h2 class="text-center mb-5">What Our Users Say</h2>
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4 text-center">
+            <i class="bi bi-quote fs-1 text-muted mb-3"></i>
+            <p class="lead mb-4">This system has completely streamlined our office meal planning. No more messy spreadsheets!</p>
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="me-3">
+                <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                  SK 
+                </div>
+              </div>
+              <div class="text-start">
+                <h5 class="mb-0">Shantanu Khokrale</h5>
+                <small class="text-muted">Office Manager</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final CTA -->
+  <div class="bg-primary text-white py-5">
+    <div class="container text-center py-4">
+      <h2 class="mb-4">Ready to Simplify Your Meal Planning?</h2>
+      <div class="d-flex justify-content-center gap-3">
+        <%= link_to 'Sign Up Now', new_user_registration_path, class: 'btn btn-light btn-lg px-4 py-2' %>
+        <%= link_to 'Learn More', '#', class: 'btn btn-outline-light btn-lg px-4 py-2' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .step-number {
+    width: 50px;
+    height: 50px;
+    background-color: #0d6efd;
+    color: white;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .feature-icon i {
+    transition: transform 0.3s;
+  }
+  
+  .feature-icon:hover i {
+    transform: scale(1.2);
+  }
+</style>

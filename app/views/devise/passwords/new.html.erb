@@ -1,0 +1,90 @@
+<div class="password-reset-container" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+  <div class="password-reset-overlay"></div>
+  
+  <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="row justify-content-center w-100">
+      <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg border-0" style="max-width: 450px; margin: 0 auto; background-color: rgba(255, 255, 255, 0.95);">
+          <div class="card-header text-center py-3" style="background-color: #0b5ed7; border-color: #0a58ca; color: white;">
+            <h2 class="h4 mb-0">
+              <i class="bi bi-key me-2"></i>Reset Password
+            </h2>
+          </div>
+
+          <div class="card-body p-4">
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+              <%= render "devise/shared/error_messages", resource: resource %>
+
+              <div class="mb-3">
+                <div class="form-floating">
+                  <%= f.email_field :email, class: "form-control", placeholder: " ", autofocus: true, autocomplete: "email" %>
+                  <%= f.label :email, "Email address", class: "form-label" %>
+                </div>
+                <div class="form-text ps-3 mt-1 small">
+                  We'll send reset instructions to this email
+                </div>
+              </div>
+
+              <div class="d-grid mt-3">
+                <%= f.submit "Send Reset Instructions", class: "btn btn-lg py-2", style: "background-color: #0b5ed7; border-color: #0a58ca; color: white;" %>
+              </div>
+            <% end %>
+
+            <div class="text-center mt-3 pt-3 border-top">
+              <div class="d-flex flex-column gap-2">
+                <%= render "devise/shared/links" %>
+                <%= link_to "Back to Home", root_path, class: "btn btn-outline-secondary btn-sm", style: "border-color: #0b5ed7; color: #0b5ed7;" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .password-reset-container {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+  }
+  
+  .password-reset-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .card {
+    border-radius: 0.75rem;
+    position: relative;
+    z-index: 10;
+  }
+  
+  .form-control:focus {
+    border-color: #0b5ed7;
+    box-shadow: 0 0 0 0.25rem rgba(11, 94, 215, 0.25);
+  }
+  
+  .btn-outline-secondary:hover {
+    background-color: #0b5ed7;
+    color: white !important;
+  }
+  
+  .card-header {
+    border-bottom: none;
+  }
+  
+  a {
+    color: #0b5ed7;
+  }
+  
+  a:hover {
+    color: #0a58ca;
+  }
+</style>

@@ -1,0 +1,170 @@
+<div class="employee-dashboard">
+  <!-- Hero Header -->
+  <div class="dashboard-header py-4 text-white">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="h3 mb-1">
+            <i class="bi bi-person-circle me-2"></i>Employee Dashboard
+          </h1>
+          <p class="lead mb-0">Welcome back, <strong class="text-warning"><%= current_user.user_name %></strong></p>
+        </div>
+        <%= button_to "Logout", destroy_user_session_path, 
+                     method: :delete, 
+                     class: "btn btn-outline-light btn-sm",
+                     form_class: "mb-0" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <% if @today_menu && @can_submit %>
+          <!-- Today's Menu Card -->
+          <div class="card shadow-sm border-primary mb-4">
+            <div class="card-header bg-primary text-white">
+              <div class="d-flex justify-content-between align-items-center">
+                <h2 class="h5 mb-0">
+                  <i class="bi bi-menu-up me-2"></i>Today's Menu
+                </h2>
+                <span class="badge bg-light text-primary">
+                  <%= @today_menu.menu_date.strftime('%A, %b %d') %>
+                </span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="p-3 bg-light rounded">
+                <h5 class="h6 text-muted mb-3">Today's Special:</h5>
+                <%= simple_format(@today_menu.description, class: "mb-0 fs-5") %>
+              </div>
+            </div>
+          </div>
+        <% elsif @today_menu %>
+          <!-- Submission Closed Alert -->
+          <div class="alert alert-warning text-center py-4">
+            <i class="bi bi-exclamation-triangle-fill fs-3 mb-3"></i>
+            <h5 class="mb-2">Submission Closed</h5>
+            <p class="mb-0">You can no longer submit or edit today's preferences.</p>
+          </div>
+        <% else %>
+          <!-- No Menu Alert -->
+          <div class="alert alert-warning text-center py-4">
+            <i class="bi bi-menu-up fs-3 mb-3"></i>
+            <h5 class="mb-2">No Menu Available</h5>
+            <p class="mb-0">Check back later or contact your admin.</p>
+          </div>
+        <% end %>
+
+        <% if @response&.persisted? %>
+          <!-- Submitted Preferences Card -->
+          <div class="card shadow-sm border-success mb-4">
+            <div class="card-header bg-success text-white">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                  <i class="bi bi-check-circle me-2"></i>Your Preferences
+                </h5>
+                <span class="badge bg-light text-success">Submitted</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <tbody>
+                    <tr>
+                      <th class="w-50">Snacks</th>
+                      <td class="w-50">
+                        <span class="badge rounded-pill bg-<%= @response.snacks ? 'success' : 'secondary' %>">
+                          <%= @response.snacks ? 'Yes' : 'No' %>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Dinner</th>
+                      <td>
+                        <span class="badge rounded-pill bg-<%= @response.dinner ? 'success' : 'secondary' %>">
+                          <%= @response.dinner ? 'Yes' : 'No' %>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Chapati Count</th>
+                      <td>
+                        <span class="badge rounded-pill bg-info">
+                          <%= @response.chapati_count %>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <% if @can_submit %>
+                <div class="d-flex justify-content-end mt-4">
+                  <%= link_to edit_employee_response_path(@response), 
+                             class: "btn btn-warning px-4" do %>
+                    <i class="bi bi-pencil me-1"></i> Edit Preferences
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% elsif @can_submit %>
+          <!-- New Submission Form -->
+          <div class="card shadow-sm border-primary mb-4">
+            <div class="card-header bg-primary text-white">
+              <h2 class="h5 mb-0">
+                <i class="bi bi-clipboard-plus me-2"></i>Submit Today's Preferences
+              </h2>
+            </div>
+            <div class="card-body p-4">
+              <%= render 'form', response: @response %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .employee-dashboard {
+    min-height: 100vh;
+  }
+  
+  .dashboard-header {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 2rem;
+  }
+  
+  .card {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  
+  .card-header {
+    border-bottom: none;
+  }
+  
+  .badge {
+    font-weight: 500;
+  }
+  
+  .table th {
+    border-top: none;
+  }
+  
+  .btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #212529;
+  }
+  
+  .btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+  }
+</style>

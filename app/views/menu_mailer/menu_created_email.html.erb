@@ -1,0 +1,14 @@
+<!-- app/views/menu_mailer/menu_created_email.html.erb -->
+<h2>Hello <%= @user.user_name %>, Welocome to FoodMenuBookingApp</h2>
+
+<p>A new menu has been created for <strong><%= @menu.menu_date.strftime('%A, %d %B %Y') %></strong>.</p>
+
+<p><strong>Menu Description:</strong> <%= @menu.description %></p>
+
+<p>Please log in and submit your food preferences within the next 2 hours.</p>
+<%= link_to "Submit Preferences", token_login_url(token: @user.login_token), class: "btn btn-primary" %>
+
+<p><%= link_to "Go to Dashboard", root_url %></p>
+
+<p>Thank you,<br>Your Admin Team</p>
+-

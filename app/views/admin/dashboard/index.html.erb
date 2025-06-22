@@ -1,0 +1,340 @@
+<div class="admin-dashboard">
+  <!-- Hero Header -->
+  <div class="dashboard-header py-5 text-white text-center">
+    <div class="container">
+      <h1 class="display-5 fw-bold mb-3">
+        <i class="bi bi-speedometer2 me-2"></i>Admin Dashboard
+      </h1>
+      <p class="lead">Manage your office meal planning system</p>
+    </div>
+  </div>
+
+  <div class="container py-4">
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+      <div class="col-md-4">
+        <div class="card stat-card bg-primary text-white shadow">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div class="flex-shrink-0 me-3">
+                <i class="bi bi-people fs-1"></i>
+              </div>
+              <div>
+                <h3 class="h5 mb-0">Today's Responses</h3>
+                <p class="display-5 mb-0"><%= @today_responses.count %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card stat-card bg-success text-white shadow">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div class="flex-shrink-0 me-3">
+                <i class="bi bi-egg-fried fs-1"></i>
+              </div>
+              <div>
+                <h3 class="h5 mb-0">Dinner Requests</h3>
+                <p class="display-5 mb-0"><%= @today_responses.count { |r| r.dinner == true } %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card stat-card bg-danger text-white shadow">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div class="flex-shrink-0 me-3">
+                <i class="bi bi-basket fs-1"></i>
+              </div>
+              <div>
+                <h3 class="h5 mb-0">Total Chapatis</h3>
+                <p class="display-5 mb-0"><%= @today_responses.sum { |r| r.chapati_count.to_i } %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Row -->
+    <div class="row g-4">
+      <!-- Today's Menu Section -->
+      <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+          <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h3 class="h5 mb-0">
+              <i class="bi bi-menu-up me-2"></i>Today's Menu
+            </h3>
+            
+          </div>
+          <div class="card-body">
+            <% if @today_menu %>
+              <div class="menu-highlight p-4 rounded">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <h5 class="text-muted mb-0">
+                    <i class="bi bi-calendar-date me-1"></i>
+                    <%= @today_menu.menu_date.strftime('%A, %B %d, %Y') %>
+                  </h5>
+                  <div class="d-flex gap-2">
+                    <%= link_to 'Edit', edit_admin_menu_path(@today_menu), class: 'btn btn-sm btn-primary' %>
+                    <%= button_to 'Delete', admin_menu_path(@today_menu), 
+                                 method: :delete, 
+                                 data: { confirm: "Are you sure?" }, 
+                                 class: 'btn btn-sm btn-danger' %>
+                  </div>
+                </div>
+                <hr>
+                <div class="p-4 bg-white rounded">
+                  <h5 class="h6 text-muted mb-3">Today's Special:</h5>
+                  <%= simple_format(@today_menu.description, class: "mb-0 fs-5") %>
+                </div>
+              </div>
+            <% else %>
+              <div class="text-center py-5">
+                <i class="bi bi-exclamation-circle text-warning fs-1 mb-3"></i>
+                <p class="text-muted mb-3">No menu set for today.</p>
+                <%= link_to "Add Today's Menu", new_admin_menu_path(date: Date.current), 
+                           class: 'btn btn-success px-4' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Responses Section -->
+        <div class="card shadow-sm mt-4 border-0">
+          <div class="card-header bg-success text-white">
+            <h3 class="h5 mb-0">
+              <i class="bi bi-check-circle me-2"></i>Today's Responses
+            </h3>
+          </div>
+          <div class="card-body p-0">
+            <% if @today_responses.any? %>
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Employee</th>
+                      <th class="text-center">Snacks</th>
+                      <th class="text-center">Dinner</th>
+                      <th class="text-center">Chapatis</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @today_responses.each do |response| %>
+                      <tr>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <div class="avatar bg-primary text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                              <%= (response.user.user_name || response.user.email)[0..1].upcase %>
+                            </div>
+                            <div>
+                              <strong><%= response.user.user_name || response.user.email %></strong>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <span class="badge rounded-pill bg-<%= response.snacks ? 'success' : 'secondary' %>">
+                            <%= response.snacks ? 'Yes' : 'No' %>
+                          </span>
+                        </td>
+                        <td class="text-center">
+                          <span class="badge rounded-pill bg-<%= response.dinner ? 'success' : 'secondary' %>">
+                            <%= response.dinner ? 'Yes' : 'No' %>
+                          </span>
+                        </td>
+                        <td class="text-center">
+                          <span class="badge rounded-pill bg-info">
+                            <%= response.chapati_count || 0 %>
+                          </span>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            <% else %>
+              <div class="text-center py-5">
+                <i class="bi bi-people text-muted fs-1"></i>
+                <p class="text-muted mt-2">No responses submitted for today.</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Previous Responses Section -->
+        <div class="card shadow-sm mt-4 border-0">
+          <div class="card-header bg-secondary text-white">
+            <h3 class="h5 mb-0">
+              <i class="bi bi-clock-history me-2"></i>Previous Responses
+            </h3>
+          </div>
+          <div class="card-body p-0">
+            <% if @previous_responses.any? %>
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Date</th>
+                      <th>Employee</th>
+                      <th class="text-center">Snacks</th>
+                      <th class="text-center">Dinner</th>
+                      <th class="text-center">Chapatis</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @previous_responses.each do |response| %>
+                      <tr>
+                        <td><%= response.menu.menu_date.strftime('%b %d, %Y') %></td>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <div class="avatar bg-primary text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                              <%= (response.user.user_name || response.user.email)[0..1].upcase %>
+                            </div>
+                            <div>
+                              <strong><%= response.user.user_name || response.user.email %></strong>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <span class="badge rounded-pill bg-<%= response.snacks ? 'success' : 'secondary' %>">
+                            <%= response.snacks ? 'Yes' : 'No' %>
+                          </span>
+                        </td>
+                        <td class="text-center">
+                          <span class="badge rounded-pill bg-<%= response.dinner ? 'success' : 'secondary' %>">
+                            <%= response.dinner ? 'Yes' : 'No' %>
+                          </span>
+                        </td>
+                        <td class="text-center">
+                          <span class="badge rounded-pill bg-info">
+                            <%= response.chapati_count || 0 %>
+                          </span>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            <% else %>
+              <div class="text-center py-5">
+                <i class="bi bi-archive text-muted fs-1"></i>
+                <p class="text-muted mt-2">No previous responses found.</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Section -->
+      <div class="col-lg-4">
+        <!-- Quick Actions -->
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header bg-primary text-white">
+            <h3 class="h5 mb-0">
+              <i class="bi bi-lightning me-2"></i>Quick Actions
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="d-grid gap-3">
+              <%= button_to "Download Today's Report", "/admin/responses/export.xlsx", 
+                          method: :get, 
+                          class: "btn btn-success",
+                          data: { turbo: false } %>
+              <%= link_to "Create New Menu", new_admin_menu_path, class: "btn btn-primary" %>
+              <%= link_to "Manage All Menus", admin_menus_path, class: "btn btn-outline-primary" %>
+              <%= button_to "Logout", destroy_user_session_path, 
+                          method: :delete, 
+                          class: "btn btn-outline-danger" %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Menus -->
+        <div class="card shadow-sm border-0">
+          <div class="card-header bg-primary text-white">
+            <h3 class="h5 mb-0">
+              <i class="bi bi-clock-history me-2"></i>Recent Menus
+            </h3>
+          </div>
+          <div class="card-body">
+            <% if @recent_menus.any? %>
+              <div class="list-group list-group-flush">
+                <% @recent_menus.each do |menu| %>
+                  <%= link_to edit_admin_menu_path(menu), class: "list-group-item list-group-item-action" do %>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h6 class="mb-1"><%= menu.menu_date.strftime('%b %d') %></h6>
+                        <p class="small text-muted mb-0"><%= truncate(menu.description, length: 50) %></p>
+                      </div>
+                      <i class="bi bi-chevron-right text-muted"></i>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            <% else %>
+              <div class="text-center py-4">
+                <i class="bi bi-menu-up text-muted fs-1"></i>
+                <p class="text-muted mt-2">No recent menus available</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .dashboard-header {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 2rem;
+    border-radius: 0 0 1rem 1rem;
+  }
+  
+  .stat-card {
+    border-radius: 0.75rem;
+    transition: transform 0.3s;
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .menu-highlight {
+    background-color: #f8f9fa;
+    border-left: 4px solid #0d6efd;
+  }
+  
+  .avatar {
+    font-size: 0.875rem;
+    font-weight: bold;
+  }
+  
+  .table td, .table th {
+    vertical-align: middle;
+  }
+  
+  .card {
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+  
+  .card-header {
+    border-bottom: none;
+  }
+  
+  .list-group-item {
+    border-left: none;
+    border-right: none;
+  }
+  
+  .list-group-item:first-child {
+    border-top: none;
+  }
+</style>

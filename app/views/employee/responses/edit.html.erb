@@ -1,0 +1,43 @@
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h1 class="h3 mb-1">Edit Your Preferences</h1>
+          <p class="text-muted mb-0">You can update your response for today's menu.</p>
+        </div>
+        <%= button_to "Back", employee_dashboard_path, method: :get, class: "btn btn-outline-secondary btn-sm", form_class: "mb-0" %>
+      </div>
+
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+          <%= form_with model: @response, url: employee_response_path(@response), method: :patch, local: true do |f| %>
+            <div class="mb-4 p-3 bg-light rounded">
+              <div class="form-check form-switch mb-3">
+                <%= f.check_box :snacks, class: "form-check-input", id: "snacks", role: "switch" %>
+                <%= f.label :snacks, "I would like snacks today", class: "form-check-label", for: "snacks" %>
+              </div>
+
+              <div class="form-check form-switch mb-3">
+                <%= f.check_box :dinner, class: "form-check-input", id: "dinner", role: "switch" %>
+                <%= f.label :dinner, "I would like dinner today", class: "form-check-label", for: "dinner" %>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <div class="form-floating">
+                <%= f.number_field :chapati_count, min: 0, step: 1, class: "form-control", placeholder: " " %>
+                <%= f.label :chapati_count, "Number of Chapatis", class: "form-label" %>
+              </div>
+              <div class="form-text">Enter 0 if you don't want any chapatis</div>
+            </div>
+
+            <div class="d-grid">
+              <%= f.submit "Update My Preferences", class: "btn btn-primary btn-lg py-3" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

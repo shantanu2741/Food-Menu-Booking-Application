@@ -1,0 +1,92 @@
+<div class="login-container" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+  <div class="login-overlay"></div>
+  
+  <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="row justify-content-center w-100">
+      <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg border-0" style="max-width: 450px; margin: 0 auto; background-color: rgba(255, 255, 255, 0.95);">
+          <div class="card-header text-center py-3" style="background-color: #0b5ed7; border-color: #0a58ca; color: white;">
+            <h2 class="h4 mb-0">
+              <i class="bi bi-magic me-2"></i>Passwordless Login
+            </h2>
+          </div>
+
+          <div class="card-body p-4">
+            <%= form_with url: magic_link_path, method: :post, local: true do |form| %>
+              <div class="mb-4">
+                <div class="form-floating">
+                  <%= form.email_field :email, 
+                                    required: true, 
+                                    class: "form-control", 
+                                    placeholder: " ",
+                                    autofocus: true %>
+                  <%= form.label :email, "Email Address", class: "form-label" %>
+                </div>
+                <small class="text-muted">We'll send you a magic link to sign in</small>
+              </div>
+
+              <div class="d-grid mt-3">
+                <%= form.submit "Send Magic Link", class: "btn btn-lg py-2", style: "background-color: #0b5ed7; border-color: #0a58ca; color: white;" %>
+              </div>
+            <% end %>
+
+            <div class="text-center mt-3 pt-3 border-top">
+              <div class="d-flex flex-column gap-2">
+                <%= link_to "Back to Home", root_path, class: "btn btn-outline-secondary btn-sm", style: "border-color: #0b5ed7; color: #0b5ed7;" %>
+                <%= link_to "Traditional Login", new_user_session_path, class: "btn btn-outline-secondary btn-sm", style: "border-color: #0b5ed7; color: #0b5ed7;" %>
+                <p class="text-muted mb-2 small">Don't have an account?</p>
+                <%= link_to "Sign up", new_user_registration_path, class: "btn btn-outline-primary btn-sm" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .login-container {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+  }
+  
+  .login-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .card {
+    border-radius: 0.75rem;
+    position: relative;
+    z-index: 10;
+  }
+  
+  .form-control:focus {
+    border-color: #0b5ed7;
+    box-shadow: 0 0 0 0.25rem rgba(11, 94, 215, 0.25);
+  }
+  
+  .btn-outline-secondary:hover {
+    background-color: #0b5ed7;
+    color: white !important;
+  }
+  
+  .card-header {
+    border-bottom: none;
+  }
+  
+  a {
+    color: #0b5ed7;
+  }
+  
+  a:hover {
+    color: #0a58ca;
+  }
+</style>

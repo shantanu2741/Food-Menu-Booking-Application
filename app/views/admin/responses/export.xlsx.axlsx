@@ -1,0 +1,22 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Today's Yes Responses") do |sheet|
+  sheet.add_row ["Employee Name", "Snacks", "Dinner", "Chapatis"]
+
+  @responses.each do |response|
+    sheet.add_row [
+      response.user.user_name,
+      response.snacks ? "Yes" : "",
+      response.dinner ? "Yes" : "",
+      response.chapati_count
+    ]
+  end
+
+  # Empty row before summary
+  sheet.add_row []
+
+  # Summary rows
+  sheet.add_row ["Total Yes (Snacks)", @snacks_yes]
+  sheet.add_row ["Total Yes (Dinner)", @dinner_yes]
+  sheet.add_row ["Total Chapatis", @total_chapatis]
+end

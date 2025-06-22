@@ -1,0 +1,33 @@
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <h1 class="h3 mb-3 text-center">Edit Your Preferences</h1>
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <%= form_with model: @response, url: employee_update_response_path(@response), method: :patch, local: true do |f| %>
+            <div class="mb-3 form-check form-switch">
+              <%= f.check_box :snacks, class: "form-check-input", id: "edit_snacks", role: "switch" %>
+              <%= f.label :snacks, "I would like snacks today", class: "form-check-label" %>
+            </div>
+
+            <div class="mb-3 form-check form-switch">
+              <%= f.check_box :dinner, class: "form-check-input", id: "edit_dinner", role: "switch" %>
+              <%= f.label :dinner, "I would like dinner today", class: "form-check-label" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :chapati_count, "Chapati Count", class: "form-label" %>
+              <%= f.number_field :chapati_count, min: 0, step: 1, class: "form-control" %>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <%= f.submit "Update", class: "btn btn-success" %>
+              <%= link_to "Back", employee_dashboard_path, class: "btn btn-outline-secondary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
